@@ -78,7 +78,7 @@ else:
     
 toc = col2.button("Get Components")
 if toc:
-    toc_res = index.query(f" list out the electrical components and their quantities available in the diagram and their models is a json format ")
+    toc_res = index.query(f" list out the electrical components and their quantities with their models available in the diagram in a json format ")
     str_toc = str(toc_res)
     print(str_toc)
     json_output = json.loads(str_toc)
