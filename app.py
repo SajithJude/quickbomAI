@@ -78,8 +78,16 @@ else:
     
 toc = col2.button("Get Components")
 if toc:
-    toc_res = index.query(f" list out the electrical components and their quantities with their models available in the diagram in a json format ")
+    toc_res = index.query(f" list out the electrical components and their quantities with their models used in the document, in a json format ")
     str_toc = str(toc_res)
     print(str_toc)
     json_output = json.loads(str_toc)
     col2.write(json_output)
+    table_of_contents = json_output["Table of Contents"]
+    if "table_of_contents" not in st.session_state:
+        st.session_state.table_of_contents = table_of_contents
+    for item in st.session_state.table_of_contents:
+        # for title, content in item.items():
+        if col2.checkbox(item):
+            if title not in st.session_state.selected_items:
+                st.session_state.selected_items.append(item)
