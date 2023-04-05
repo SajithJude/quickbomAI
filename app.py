@@ -83,7 +83,7 @@ if toc:
     print(str_toc)
     json_output = json.loads(str_toc)
     col2.write(json_output)
-    table_of_contents = json_output["Table of Contents"]
+    table_of_contents = json_output
     if "table_of_contents" not in st.session_state:
         st.session_state.table_of_contents = table_of_contents
     for item in st.session_state.table_of_contents:
