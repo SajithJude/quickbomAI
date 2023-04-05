@@ -38,7 +38,7 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
 
 
-col1, col2, col3, col4 = st.tabs(["Upload pdf", "extract content", "fetch content" "generate bom",])
+col1, col2, col3, col4 = st.tabs(["Upload pdf", "extract content", "fetch content", "generate bom"])
 
 uploaded_file = col1.file_uploader("Upload PDF", type="pdf")
 if uploaded_file is not None:
@@ -76,7 +76,7 @@ else:
     # If there are no index files available, prompt the user to upload a PDF file
     col2.warning("No index files found. Please upload a PDF file to create an index.")
     
-toc = col2.button("Load Chapter")
+toc = col2.button("Get Components")
 if toc:
     toc_res = index.query(f" list out the electrical components and their quantities available in the diagram and their models is a json format ")
     str_toc = str(toc_res)
