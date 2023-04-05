@@ -102,5 +102,8 @@ for item in st.session_state.table_of_contents:
 
 counted_list = Counter(st.session_state.selected_items)
 
+
+src = col3.text_input("Pricing source")
+btn = col3.btn("Fetch Pricing")
 # Create a table with two columns, one for the item name and the other for the number of times it appears
 col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
