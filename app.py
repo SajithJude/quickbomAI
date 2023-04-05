@@ -86,6 +86,12 @@ if toc:
     table_of_contents = json_output
     if "table_of_contents" not in st.session_state:
         st.session_state.table_of_contents = table_of_contents
+
+
+    if "selected_items" not in st.session_state:
+        st.session_state.selected_items = []
+
+        
     for item in st.session_state.table_of_contents:
         # for title, content in item.items():
         if col2.checkbox(item):
