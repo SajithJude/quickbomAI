@@ -95,5 +95,5 @@ if "selected_items" not in st.session_state:
 for item in st.session_state.table_of_contents:
     # for title, content in item.items():
     if col2.checkbox(item):
-        if title not in st.session_state.selected_items:
-            st.session_state.selected_items.append(item)
+        # if title not in st.session_state.selected_items:
+        st.session_state.selected_items.append(item)
