@@ -98,9 +98,9 @@ for item in st.session_state.table_of_contents:
         # if title not in st.session_state.selected_items:
         st.session_state.selected_items.append(item)
 
-col3.write(st.session_state.selected_items)
+# col3.write(st.session_state.selected_items)
 
 counted_list = Counter(st.session_state.selected_items)
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
-st.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
+col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
