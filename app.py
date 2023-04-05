@@ -5,7 +5,7 @@ import openai
 import json
 
 from langchain import OpenAI
-
+from collections import Counter
 import PyPDF2
 from pathlib import Path
 from llama_index import download_loader
