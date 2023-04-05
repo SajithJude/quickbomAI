@@ -17,6 +17,10 @@ openai.api_key = os.getenv("API_KEY")
 st.title("QuickBOM.ai")
 st.caption("AI-powered BOM creation made easy")
 
+if "table_of_contents" not in st.session_state:
+    st.session_state.table_of_contents = []
+
+
 DATA_DIR = "data"
 # Create the data directory if it doesn't exist
 if not os.path.exists(DATA_DIR):
