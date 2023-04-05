@@ -97,3 +97,5 @@ for item in st.session_state.table_of_contents:
     if col2.checkbox(item):
         # if title not in st.session_state.selected_items:
         st.session_state.selected_items.append(item)
+
+col3.write(st.session_state.selected_items)
