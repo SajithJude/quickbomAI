@@ -38,7 +38,7 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
 
 
-col1, col2, col3, col4 = st.tabs(["Upload pdf", "extract content", "fetch content", "generate bom"])
+col1, col2, col3, col4 = st.tabs(["Upload pdf", "extract Components", "fetch content", "generate bom"])
 
 uploaded_file = col1.file_uploader("Upload PDF", type="pdf")
 if uploaded_file is not None:
@@ -68,7 +68,7 @@ if index_filenames:
     # If there are index files available, create a dropdown to select the index file to load
     index_file = col2.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
     index_path = os.path.join(DATA_DIR, index_file)
-    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=512))
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 
     index = GPTSimpleVectorIndex.load_from_disk(index_path,service_context=service_context)
