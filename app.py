@@ -88,8 +88,8 @@ if toc:
     json_output = json.loads(str_toc)
     # col2.write(json_output)
     table_of_contents = json_output
-    if "table_of_contents" not in st.session_state:
-        st.session_state.table_of_contents = table_of_contents
+    # if "table_of_contents" not in st.session_state:
+    st.session_state.table_of_contents = table_of_contents
 
 
 if "selected_items" not in st.session_state:
