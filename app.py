@@ -38,7 +38,7 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
 
 
-col1, col2, col3, col4 = st.tabs(["Upload pdf", "extract Components", "fetch content", "generate bom"])
+col1, col2, col3, col4 = st.tabs(["__Upload pdf__", "__Extract Components__", "__Fetch Pricing__", "__Generate BOM__"])
 
 uploaded_file = col1.file_uploader("Upload PDF", type="pdf")
 if uploaded_file is not None:
@@ -104,6 +104,6 @@ counted_list = Counter(st.session_state.selected_items)
 
 
 src = col3.text_input("Pricing source")
-btn = col3.btn("Fetch Pricing")
+btn = col3.button("Fetch Pricing")
 # Create a table with two columns, one for the item name and the other for the number of times it appears
 col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
