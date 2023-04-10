@@ -125,8 +125,8 @@ if scrape_url:
     st.session_state.scrapeIndex = scrapeIndex
 
     pric = st.session_state.scrapeIndex.query(f"Fetch the prices of the following items as a json list {st.session_state.selected_items}")
-    jso = json.loads(pric.response)
-    st.write(jso)
+    # jso = json.loads(pric.response)
+    st.write(pric.response)
 
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
