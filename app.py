@@ -125,7 +125,7 @@ if scrape_url:
     scrapeIndex = GPTSimpleVectorIndex.from_documents(documents)
     st.session_state.scrapeIndex = scrapeIndex
 
-    pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items as a json list  :" +str(counted_list.keys()))
+    pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items  :" +str(counted_list.keys()))
     # jso = json.loads(pric.response)
     st.write(pric.response)
 
