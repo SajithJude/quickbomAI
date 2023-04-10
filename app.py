@@ -126,8 +126,9 @@ if scrape_url:
     st.session_state.scrapeIndex = scrapeIndex
 
     pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items, dont include anything else in the output  " +str(counted_list.keys()))
-    jso = json.loads(pric.response)
     st.write(pric.response)
+    jso = json.loads(str(pric.response))
+
 
 url_input = col3.text_input("Pricing source")
 bat = st.button("Query")
