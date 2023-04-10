@@ -16,6 +16,11 @@ os.system("playwright install")
 KnowledgeBaseWebReader = download_loader("KnowledgeBaseWebReader")
 
 loader = KnowledgeBaseWebReader()
+documents = loader.load_data(
+    root_url='https://us.rs-online.com/', 
+    link_selectors=['.search-wrapper-grid .search-breadcrumbs-wrapper #breadcrumbs-slider a:last-child:visited'],
+    article_path='wire-cable/cable/'
+    )
 
 
 
