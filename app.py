@@ -13,10 +13,9 @@ from llama_index import download_loader
 os.system("playwright install")
 
 # AudioTranscriber = download_loader("AudioTranscriber")
-KnowledgeBaseWebReader = download_loader("KnowledgeBaseWebReader")
+BeautifulSoupWebReader = download_loader("BeautifulSoupWebReader")
 
-loader = KnowledgeBaseWebReader()
-
+loader = BeautifulSoupWebReader()
 
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
