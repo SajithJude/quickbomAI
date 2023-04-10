@@ -131,12 +131,12 @@ if scrape_url:
     st.write(jso)
 
 
-url_input = col3.text_input("Pricing source")
-bat = st.button("Query")
+# url_input = col3.text_input("Pricing source")
+# bat = st.button("Query")
 
-if bat:
-    rep = st.session_state.scrapeIndex.query(url_input)
-    st.write(rep.response)
+# if bat:
+#     rep = st.session_state.scrapeIndex.query(url_input)
+#     st.write(rep.response)
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
-col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
+col3.table({"Item": list(counted_list.keys()), "Price": list(jso.values()), "Count": list(counted_list.values())})
