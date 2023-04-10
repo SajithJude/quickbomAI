@@ -120,12 +120,12 @@ if scrape_url:
     # documents = loader.load_data(urls=["https://us.rs-online.com/connectors/","https://us.rs-online.com/electronic-components/","https://us.rs-online.com/enclosures-racks-cabinets/","https://us.rs-online.com/facilities-cleaning-maintenance/","https://us.rs-online.com/fans-thermal-management/","https://us.rs-online.com/industrial-controls/","https://us.rs-online.com/industrial-data-communications/","https://us.rs-online.com/lighting-indication/","https://us.rs-online.com/motors-motor-controls/","https://us.rs-online.com/plcs-hmis/","https://us.rs-online.com/pneumatics-fluid-control/","https://us.rs-online.com/power-products/","https://us.rs-online.com/relays/","https://us.rs-online.com/sensors/","https://us.rs-online.com/test-measurement/","https://us.rs-online.com/tools-hardware/","https://us.rs-online.com/wire-cable/"])
     # st.success(f"URL content scraped successfully!")
     documents = loader.load_data(urls=["https://www.wholesalecontractorsupply.com/Cords-Tapes-Ties-Duct-Tape-Extension-s/143.htm"])
-    # llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
-    # service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-    scrapeIndex = GPTSimpleVectorIndex.from_documents(documents)
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
+    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+    scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
     st.session_state.scrapeIndex = scrapeIndex
 
-    pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items  :" +str(counted_list.keys()))
+    pric = st.session_state.scrapeIndex.query("Fetch the prices of the following items as a json list  " +str(counted_list.keys()))
     # jso = json.loads(pric.response)
     st.write(pric.response)
 
