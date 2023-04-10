@@ -9,11 +9,13 @@ from collections import Counter
 import PyPDF2
 from pathlib import Path
 from llama_index import download_loader
+# import os
+os.system("playwright install")
 
 # AudioTranscriber = download_loader("AudioTranscriber")
-BeautifulSoupWebReader = download_loader("BeautifulSoupWebReader")
+KnowledgeBaseWebReader = download_loader("KnowledgeBaseWebReader")
 
-loader = BeautifulSoupWebReader()
+loader = KnowledgeBaseWebReader()
 
 
 
@@ -115,8 +117,13 @@ counted_list = Counter(st.session_state.selected_items)
 scrape_url = col3.button("Fetch Pricing")
 
 if scrape_url:
-    
-    documents = loader.load_data(urls=["https://us.rs-online.com/connectors/","https://us.rs-online.com/electronic-components/","https://us.rs-online.com/enclosures-racks-cabinets/","https://us.rs-online.com/facilities-cleaning-maintenance/","https://us.rs-online.com/fans-thermal-management/","https://us.rs-online.com/industrial-controls/","https://us.rs-online.com/industrial-data-communications/","https://us.rs-online.com/lighting-indication/","https://us.rs-online.com/motors-motor-controls/","https://us.rs-online.com/plcs-hmis/","https://us.rs-online.com/pneumatics-fluid-control/","https://us.rs-online.com/power-products/","https://us.rs-online.com/relays/","https://us.rs-online.com/sensors/","https://us.rs-online.com/test-measurement/","https://us.rs-online.com/tools-hardware/","https://us.rs-online.com/wire-cable/"])
+
+    documents = loader.load_data(
+    root_url='https://us.rs-online.com/', 
+    link_selectors=['.search-wrapper-grid .search-breadcrumbs-wrapper #breadcrumbs-slider a:last-child:visited']
+    article_path='wire-cable/cable/'
+    )
+    # documents = loader.load_data(urls=["https://us.rs-online.com/connectors/","https://us.rs-online.com/electronic-components/","https://us.rs-online.com/enclosures-racks-cabinets/","https://us.rs-online.com/facilities-cleaning-maintenance/","https://us.rs-online.com/fans-thermal-management/","https://us.rs-online.com/industrial-controls/","https://us.rs-online.com/industrial-data-communications/","https://us.rs-online.com/lighting-indication/","https://us.rs-online.com/motors-motor-controls/","https://us.rs-online.com/plcs-hmis/","https://us.rs-online.com/pneumatics-fluid-control/","https://us.rs-online.com/power-products/","https://us.rs-online.com/relays/","https://us.rs-online.com/sensors/","https://us.rs-online.com/test-measurement/","https://us.rs-online.com/tools-hardware/","https://us.rs-online.com/wire-cable/"])
     # st.success(f"URL content scraped successfully!")
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
