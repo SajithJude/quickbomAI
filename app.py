@@ -13,6 +13,11 @@ from llama_index import download_loader
 # AudioTranscriber = download_loader("AudioTranscriber")
 BeautifulSoupWebReader = download_loader("BeautifulSoupWebReader")
 
+loader = BeautifulSoupWebReader()
+
+
+scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
+st.session_state.scrapeIndex = scrapeIndex
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
@@ -113,15 +118,11 @@ url_input = col3.text_input("Pricing source")
 scrape_url = col3.button("Fetch Pricing")
 
 if scrape_url:
-    loader = BeautifulSoupWebReader()
+    
     documents = loader.load_data(urls=[url_input])
-    st.success(f"URL content scraped successfully!")
+    # st.success(f"URL content scraped successfully!")
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-
-
-    scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
-    st.session_state.scrapeIndex = scrapeIndex
 
     pric = st.session_state.scrapeIndex.query(f"Fetch the prices of the following items as a json list {st.session_state.selected_items}")
     jso = json.loads(pric)
