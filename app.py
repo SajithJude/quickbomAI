@@ -126,19 +126,19 @@ if scrape_url:
     st.session_state.scrapeIndex = scrapeIndex
 
     pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items, " +str(counted_list.keys()) + ", dont include anything else in the output, output should be in json format, where key and values should e enclosed in double quotes  ")
-    st.write(pric.response)
+    # st.write(pric.response)
     jso = json.loads(str(pric.response))
-    st.write(jso)
+#     st.write(jso)
 
 
-# url_input = col3.text_input("Pricing source")
-# bat = st.button("Query")
+# # url_input = col3.text_input("Pricing source")
+# # bat = st.button("Query")
 
-# if bat:
-#     rep = st.session_state.scrapeIndex.query(url_input)
-#     st.write(rep.response)
-st.write(counted_list.keys())
-st.write(jso.values())
+# # if bat:
+# #     rep = st.session_state.scrapeIndex.query(url_input)
+# #     st.write(rep.response)
+# st.write(counted_list.keys())
+# st.write(jso.values())
 
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
