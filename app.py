@@ -10,6 +10,8 @@ import PyPDF2
 from pathlib import Path
 from llama_index import download_loader
 
+# AudioTranscriber = download_loader("AudioTranscriber")
+BeautifulSoupWebReader = download_loader("BeautifulSoupWebReader")
 
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
@@ -107,7 +109,24 @@ for item in st.session_state.table_of_contents:
 counted_list = Counter(st.session_state.selected_items)
 
 
-src = col3.text_input("Pricing source")
-btn = col3.button("Fetch Pricing")
+url_input = col3.text_input("Pricing source")
+scrape_url = col3.button("Fetch Pricing")
+
+if scrape_url:
+    loader = BeautifulSoupWebReader()
+    documents = loader.load_data(urls=[url_input])
+    st.success(f"URL content scraped successfully!")
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
+    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+
+
+    scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
+    st.session_state.scrapeIndex = scrapeIndex
+
+    pric = st.session_state.scrapeIndex.query(f"Fetch the prices of the following items as a json list {st.session_state.selected_items}")
+    jso = json.loads(pric)
+    st.write(jso)
+
+
 # Create a table with two columns, one for the item name and the other for the number of times it appears
 col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
