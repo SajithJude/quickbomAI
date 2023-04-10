@@ -16,8 +16,6 @@ BeautifulSoupWebReader = download_loader("BeautifulSoupWebReader")
 loader = BeautifulSoupWebReader()
 
 
-scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
-st.session_state.scrapeIndex = scrapeIndex
 
 st.set_page_config(page_title=None, page_icon=None, layout="wide", initial_sidebar_state="collapsed")
 openai.api_key = os.getenv("API_KEY")
@@ -123,6 +121,8 @@ if scrape_url:
     # st.success(f"URL content scraped successfully!")
     llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
+    scrapeIndex = GPTSimpleVectorIndex.from_documents(documents, service_context=service_context)
+    st.session_state.scrapeIndex = scrapeIndex
 
     pric = st.session_state.scrapeIndex.query(f"Fetch the prices of the following items as a json list {st.session_state.selected_items}")
     jso = json.loads(pric)
