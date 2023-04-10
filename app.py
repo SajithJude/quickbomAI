@@ -139,4 +139,4 @@ if scrape_url:
 #     st.write(rep.response)
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
-col3.table({"Item": list(counted_list.keys()), "Price": list(jso.values()), "Count": list(counted_list.values())})
+col3.table({"Item": list(counted_list.keys()), "Price": jso.values(), "Count": list(counted_list.values())})
