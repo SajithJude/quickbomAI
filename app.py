@@ -128,6 +128,7 @@ if scrape_url:
     pric = st.session_state.scrapeIndex.query("Fetch the prices only of the following items, " +str(counted_list.keys()) + ", dont include anything else in the output, output should be in json format, where key and values should e enclosed in double quotes  ")
     st.write(pric.response)
     jso = json.loads(str(pric.response))
+    st.write(jso)
 
 
 url_input = col3.text_input("Pricing source")
