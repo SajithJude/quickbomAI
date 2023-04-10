@@ -112,7 +112,6 @@ for item in st.session_state.table_of_contents:
 counted_list = Counter(st.session_state.selected_items)
 
 
-url_input = col3.text_input("Pricing source")
 scrape_url = col3.button("Fetch Pricing")
 
 if scrape_url:
@@ -128,6 +127,12 @@ if scrape_url:
     # jso = json.loads(pric.response)
     st.write(pric.response)
 
+url_input = col3.text_input("Pricing source")
+bat = st.button("Query")
+
+if bat:
+    rep = st.session_state.scrapeIndex.query(url_input)
+    st.write(rep.response)
 
 # Create a table with two columns, one for the item name and the other for the number of times it appears
 col3.table({"Item": list(counted_list.keys()), "Count": list(counted_list.values())})
