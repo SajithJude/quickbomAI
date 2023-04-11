@@ -112,7 +112,7 @@ for item in st.session_state.table_of_contents:
 
 counted_list = Counter(st.session_state.selected_items)
 
-url_input = col3.text_input("Pricing source")
+# url_input = col3.text_input("Pricing source")
 scrape_url = col3.button("Fetch Pricing")
 
 
