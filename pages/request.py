@@ -18,6 +18,7 @@ def search_item(item):
     response = requests.get(url)
     data = response.json()
     for stock_item in data['stock']:
+        st.write(stock_item)
         for currency, prices in stock_item['prices'].items():
             for price in prices:
                 if price['unit_break'] == '1':
