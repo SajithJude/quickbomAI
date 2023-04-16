@@ -30,5 +30,5 @@ if st.button('Search'):
     for item in items:
         st.write(f'Searching for {item}...')
         
-            search_item(item)
+        search_item(item)
     st.stop()
