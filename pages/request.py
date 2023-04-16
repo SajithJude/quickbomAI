@@ -26,7 +26,9 @@ def search_item(item):
 
 # Create a Streamlit app with a loop that displays a button for each item in the list
 st.title('Part Search App')
-for item in items:
-    st.write(f'Searching for {item}...')
-    if st.button('Search'):
-        search_item(item)
+if st.button('Search'):
+    for item in items:
+        st.write(f'Searching for {item}...')
+        
+            search_item(item)
+    st.stop()
