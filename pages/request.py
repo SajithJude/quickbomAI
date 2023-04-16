@@ -16,8 +16,9 @@ items = ['single switch']
 def search_item(item):
     url = API_URL.format(item.replace(' ', '%20'), API_KEY)
     response = requests.get(url)
-    st.write(response)
-    # data = response.json()
+    data = response.json()
+    st.write(data)
+
     for stock_item in response['stock']:
         st.write(stock_item)
         for currency, prices in stock_item['prices'].items():
