@@ -9,15 +9,16 @@ API_URL = 'https://beta.api.oemsecrets.com/partsearch?searchTerm={}&apiKey={}'
 API_KEY = os.getenv('API_KEY')
 
 # Define a list of items to search for
-items = ['2 gang switch', 'single switch', 'three gang switch']
+items = ['single switch']
 
 
 # Define a function to send a request to the API and display the response
 def search_item(item):
     url = API_URL.format(item.replace(' ', '%20'), API_KEY)
     response = requests.get(url)
-    data = response.json()
-    for stock_item in data['stock']:
+    st.write(response)
+    # data = response.json()
+    for stock_item in response['stock']:
         st.write(stock_item)
         for currency, prices in stock_item['prices'].items():
             for price in prices:
