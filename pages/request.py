@@ -87,6 +87,7 @@ if st.button("Get List"):
     liststr = generate_persona(propt)
     st.write(liststr)
     json_str = json.loads(liststr)
+    st.write(json_str)
 
 
 
