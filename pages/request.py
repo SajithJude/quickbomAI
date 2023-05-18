@@ -45,6 +45,19 @@ def encode_image(image):
         return base64.b64encode(img_file.read())
 
 
+
+def generate_persona(source):
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=source,
+        temperature=0.56,
+        max_tokens=3066,
+        top_p=1,
+        frequency_penalty=0.35,
+        presence_penalty=0
+    )
+    return response.choices[0].text
+
 st.title('Product Search')
 
 uploaded_file = st.file_uploader("Upload a Diagram as a PDF file", type="pdf")
@@ -62,8 +75,10 @@ if uploaded_file is not None:
             
             b64_image = encode_image(img_path)
             response = callAPI(b64_image)
-            
-            st.write(response)
+            info = response['responses'][0]['textAnnotations'][0]['description']
+            propt = f"Get the list of electrical parts from the following description as a list in a valid JSON string: {info}"
+            liststr = generate_persona(propt)
+            st.write(liststr)
 
 
 
