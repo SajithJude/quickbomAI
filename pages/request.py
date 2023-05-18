@@ -1,6 +1,42 @@
 import streamlit as st
 import requests
 import fitz
+import os
+
+
+
+
+
+def callAPI(image):
+    vision_url = 'https://vision.googleapis.com/v1/images:annotate?key='
+
+    # Your Google Cloud Platform (GCP) API KEY. Generate one on cloud.google.com
+    api_key = os.environ["GCP_KEY"] 
+    # Load your image as a base64 encoded string
+
+    # Generate a post request for GCP vision Annotation
+    json_data= {
+        'requests': [
+            {
+                'image':{
+                    'content': image.decode('utf-8')
+                },
+                'features':[
+                    {
+                        'type':'TEXT_DETECTION',
+                        'maxResults':5
+                    }
+                ]
+            }
+        ]
+    }
+
+    # Handle the API request
+    responses = requests.post(vision_url+api_key, json=json_data)
+
+    # Read the response in json format
+
+    return responses.json()
 
 
 st.title('Product Search')
@@ -12,11 +48,11 @@ if uploaded_file is not None:
     with open(uploaded_file.name, "wb") as f:
                 f.write(uploaded_file.getbuffer())
 
-            # display PDF file
-            with fitz.open(uploaded_file.name) as doc:
-                for page in doc:  # iterate through the pages
-                    pix = page.get_pixmap()  # render page to an image
-                    pix.save("data/page-%i.png" % page.number) 
+    # display PDF file
+    with fitz.open(uploaded_file.name) as doc:
+        for page in doc:  # iterate through the pages
+            pix = page.get_pixmap()  # render page to an image
+            pix.save("data/page-%i.png" % page.number) 
 
 
 
