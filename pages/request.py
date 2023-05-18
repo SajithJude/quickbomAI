@@ -57,7 +57,7 @@ if uploaded_file is not None:
     with fitz.open(uploaded_file.name) as doc:
         for page in doc:  # iterate through the pages
             pix = page.get_pixmap()  # render page to an image
-            img_path = f"data/page-{page.number}.png"
+            img_path = f"pages/page-{page.number}.png"
             pix.save(img_path)  # save image
             
             b64_image = encode_image(img_path)
