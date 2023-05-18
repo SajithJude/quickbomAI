@@ -83,7 +83,7 @@ if uploaded_file is not None:
                 st.session_state.info = info
 
 if st.button("Get List"):   
-    propt = f"Extract the list of electrical component parts from the following description into a valid JSON string: {st.session_state.info}"
+    propt = f"Extract the list of electrical product parts from the following description into a valid JSON string: {st.session_state.info}"
     liststr = generate_persona(propt)
     st.write(liststr)
     json_str = json.loads(liststr)
@@ -112,14 +112,14 @@ headers = {
 
 # Make the API request
 if st.button("make request"):
-    response = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
+    respons = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
 
 
 try:
-    # Check the response status
-    if response.status_code == 200:
+    # Check the respons status
+    if respons.status_code == 200:
         # Load the data into a dataframe
-        data = response.json()
+        data = respons.json()
         products = data['keywordSearchReturn']['products']
 
         # Display each product
@@ -142,6 +142,6 @@ try:
                 st.write(f'From: {price["from"]}, To: {price["to"]}, Cost: {price["cost"]}')
 
     else:
-        st.error(f'Request failed with status code {response.status_code}')
+        st.error(f'Request failed with status code {respons.status_code}')
 except (NameError) as e:
     st.info("Input search keyword and click make request")
