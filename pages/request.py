@@ -87,12 +87,16 @@ if st.button("Get List"):
     liststr = generate_persona(propt)
     st.write(liststr)
     json_str = json.loads(liststr)
-    st.write(json_str)
+    if "json_str" not in st.session_state:
+        st.session_state.json_str = json_str
+    # st.write(json_str)
+
+lis = st.session_state.json_str.electrical_products
+
+prod = st.selectbox("Select a Part", lis)
 
 
-
-
-keyword = st.text_input("Input Search Keyword")
+keyword = str(prod)
 # Define parameters
 params = {
     'versionNumber': '1.2',
