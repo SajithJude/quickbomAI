@@ -107,7 +107,7 @@ else:
 
 toc = col2.button("Get Components")
 if toc:
-    toc_res = index.query(f" list out the electrical components and their quantities with their models used in the document, in a json format ")
+    toc_res = index.query(f" list out the electrical components and their quantities with their models used in the document, in a json format (Response output should be valid JSON string) ")
     str_toc = str(toc_res)
     json_output = json.loads(str_toc)
     table_of_contents = json_output
