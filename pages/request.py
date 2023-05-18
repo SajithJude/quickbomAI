@@ -1,7 +1,23 @@
 import streamlit as st
 import requests
+import fitz
+
 
 st.title('Product Search')
+
+uploaded_file = st.file_uploader("Upload a Diagram as a PDF file", type="pdf")
+
+if uploaded_file is not None:
+
+    with open(uploaded_file.name, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            # display PDF file
+            with fitz.open(uploaded_file.name) as doc:
+                for page in doc:  # iterate through the pages
+                    pix = page.get_pixmap()  # render page to an image
+                    pix.save("data/page-%i.png" % page.number) 
+
 
 
 keyword = st.text_input("Input Search Keyword")
