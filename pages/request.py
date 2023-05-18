@@ -22,7 +22,8 @@ headers = {
 }
 
 # Make the API request
-response = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
+if st.button("make request"):
+    response = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
 
 # Check the response status
 if response.status_code == 200:
