@@ -95,35 +95,37 @@ if st.button("Get List"):
         st.info("Network error Please retry once more")
 
     # st.write(json_str)
+try:
+    lis = st.session_state.json_str["electrical_products"]
 
-lis = st.session_state.json_str["electrical_products"]
-
-prod = st.selectbox("Select a Part", lis)
+    prod = st.selectbox("Select a Part", lis)
 
 
-keyword = str(prod)
-# Define parameters
-params = {
-    'versionNumber': '1.2',
-    'term': f"any:{keyword}",
-    'storeInfo.id': 'uk.farnell.com',
-    'resultsSettings.offset': '0',
-    'resultsSettings.numberOfResults': '1',
-    'resultsSettings.refinements.filters': 'rohsCompliant,inStock',
-    'resultsSettings.responseGroup': 'large',
-    'callInfo.omitXmlSchema': 'false',
-    'callInfo.responseDataFormat': 'json',
-    'callinfo.apiKey': 'dp55nxup84tuf2yd7ztb9kay' # please replace it with your own api key
-}
+    keyword = str(prod)
+    # Define parameters
+    params = {
+        'versionNumber': '1.2',
+        'term': f"any:{keyword}",
+        'storeInfo.id': 'uk.farnell.com',
+        'resultsSettings.offset': '0',
+        'resultsSettings.numberOfResults': '1',
+        'resultsSettings.refinements.filters': 'rohsCompliant,inStock',
+        'resultsSettings.responseGroup': 'large',
+        'callInfo.omitXmlSchema': 'false',
+        'callInfo.responseDataFormat': 'json',
+        'callinfo.apiKey': 'dp55nxup84tuf2yd7ztb9kay' # please replace it with your own api key
+    }
 
-headers = {
-    'X-Originating-IP': '175.157.190.21' # replace it with your own IP
-}
+    headers = {
+        'X-Originating-IP': '175.157.190.21' # replace it with your own IP
+    }
 
-# Make the API request
-if st.button("make request"):
-    respons = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
+    # Make the API request
+    if st.button("make request"):
+        respons = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
 
+except (AttributeError) as e:
+    st.info("To get Started Upload an Electrical Diagram and click Get List")
 
 try:
     # Check the respons status
