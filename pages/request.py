@@ -83,7 +83,7 @@ if uploaded_file is not None:
                 st.session_state.info = info
 
 if st.button("Get List"):   
-    propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}"
+    propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}\n (list key should be electrical_products)"
     liststr = generate_persona(propt)
     st.write(liststr)
     json_str = json.loads(liststr)
