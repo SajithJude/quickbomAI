@@ -42,7 +42,7 @@ def callAPI(image):
 
 def encode_image(image):
     with open(image, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode('utf-8')
+        return base64.b64encode(img_file.read())
 
 
 st.title('Product Search')
