@@ -91,7 +91,7 @@ if st.button("Get List"):
         st.session_state.json_str = json_str
     # st.write(json_str)
 
-lis = st.session_state.json_str.electrical_products
+lis = st.session_state.json_str["electrical_products"]
 
 prod = st.selectbox("Select a Part", lis)
 
