@@ -8,7 +8,7 @@ keyword = st.text_input("Input Search Keyword")
 # Define parameters
 params = {
     'versionNumber': '1.2',
-    'term': str(keyword),
+    'term': f"any:{keyword}",
     'storeInfo.id': 'uk.farnell.com',
     'resultsSettings.offset': '0',
     'resultsSettings.numberOfResults': '1',
