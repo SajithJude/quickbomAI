@@ -83,12 +83,17 @@ if uploaded_file is not None:
                 st.session_state.info = info
 
 if st.button("Get List"):   
-    propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}\n (list key should be electrical_products)"
-    liststr = generate_persona(propt)
-    st.write(liststr)
-    json_str = json.loads(liststr)
-    if "json_str" not in st.session_state:
-        st.session_state.json_str = json_str
+    with st.spinner("Please wait till the AI engine extracts the part list"):
+        propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}\n (list key should be electrical_products)"
+        liststr = generate_persona(propt)
+        st.write(liststr)
+    try:
+        json_str = json.loads(liststr)
+        if "json_str" not in st.session_state:
+            st.session_state.json_str = json_str
+    except json.JSONDecodeError as e:
+        st.info("Network error Please retry once more")
+
     # st.write(json_str)
 
 lis = st.session_state.json_str["electrical_products"]
