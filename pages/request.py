@@ -16,7 +16,7 @@ params = {
     'resultsSettings.responseGroup': 'large',
     'callInfo.omitXmlSchema': 'false',
     'callInfo.responseDataFormat': 'json',
-    'callinfo.apiKey': 'dp55nxup84tuf2yd7ztb9kay' # please replace it with your own api key
+    # 'callinfo.apiKey': 'dp55nxup84tuf2yd7ztb9kay' # please replace it with your own api key
 }
 
 headers = {
