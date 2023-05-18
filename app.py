@@ -99,7 +99,7 @@ index_filenames = [f for f in os.listdir(DATA_DIR) if f.endswith(".json")]
 if index_filenames:
     index_file = col2.selectbox("Select an index file to load:", index_filenames,label_visibility="collapsed")
     index_path = os.path.join(DATA_DIR, index_file)
-    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=1024))
+    llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, model_name="text-davinci-003", max_tokens=3000))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
     index = GPTSimpleVectorIndex.load_from_disk(index_path,service_context=service_context)
 else:
