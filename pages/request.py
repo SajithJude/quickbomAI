@@ -1,63 +1,53 @@
-# import requests
-# import streamlit as st
-# import os
-
-# # Define the API endpoint URL with a placeholder for the search term
-# API_URL = 'https://beta.api.oemsecrets.com/partsearch?searchTerm={}&apiKey={}'
-
-# # Get the API key from the environment variable
-# API_KEY = os.getenv('API_KEY')
-
-# # Define a list of items to search for
-# items = ['single switch']
-
-
-# # Define a function to send a request to the API and display the response
-# def search_item(item):
-#     url = API_URL.format(item.replace(' ', '%20'), API_KEY)
-#     response = requests.get(url)
-#     data = response.json()
-#     st.write(data)
-
-#     for stock_item in response['stock']:
-#         st.write(stock_item)
-#         for currency, prices in stock_item['prices'].items():
-#             for price in prices:
-#                 if price['unit_break'] == '1':
-#                     unit_price = price['unit_price']
-#                     st.write(f"The unit price for {item} is {unit_price} {currency}.")
-
-# # Create a Streamlit app with a loop that displays a button for each item in the list
-# st.title('Part Search App')
-# if st.button('Search'):
-#     for item in items:
-#         st.write(f'Searching for {item}...')
-        
-#         search_item(item)
-#     st.stop()
-
-
 import streamlit as st
-import json
+import requests
 
-st.title("Join the Waitlist")
+st.title('Product Search')
 
-# Get user email address
-email = st.text_input("Enter your email address")
+# Define parameters
+params = {
+    'versionNumber': '1.2',
+    'term': 'any:fuse',
+    'storeInfo.id': 'uk.farnell.com',
+    'resultsSettings.offset': '0',
+    'resultsSettings.numberOfResults': '1',
+    'resultsSettings.refinements.filters': 'rohsCompliant,inStock',
+    'resultsSettings.responseGroup': 'large',
+    'callInfo.omitXmlSchema': 'false',
+    'callInfo.responseDataFormat': 'json',
+    'callinfo.apiKey': 'dp55nxup84tuf2yd7ztb9kay' # please replace it with your own api key
+}
 
-# Save email address to file
-if st.button("Join Waitlist"):
-    data = {
-        "email": email
-    }
-    with open("db.json", "a+") as f:
-        f.seek(0)
-        try:
-            emails = json.load(f)
-        except:
-            emails = []
-        emails.append(data)
-        f.seek(0)
-        json.dump(emails, f)
-    st.success("You have joined the waitlist!")
+headers = {
+    'X-Originating-IP': '175.157.190.21' # replace it with your own IP
+}
 
+# Make the API request
+response = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
+
+# Check the response status
+if response.status_code == 200:
+    # Load the data into a dataframe
+    data = response.json()
+    products = data['keywordSearchReturn']['products']
+
+    # Display each product
+    for product in products:
+        st.subheader(product['displayName'])
+        st.text(f'SKU: {product["sku"]}')
+        st.text(f'Product Status: {product["productStatus"]}')
+        st.text(f'ROHS Status Code: {product["rohsStatusCode"]}')
+        st.text(f'Pack Size: {product["packSize"]}')
+        st.text(f'Unit of Measure: {product["unitOfMeasure"]}')
+        st.image(f'https://uk.farnell.com{product["image"]["baseName"]}')
+
+        st.subheader('Datasheets:')
+        for datasheet in product['datasheets']:
+            st.text(f'Description: {datasheet["description"]}')
+            st.text(f'URL: {datasheet["url"]}')
+
+        st.subheader('Prices:')
+        for price in product['prices']:
+            st.text(f'From: {price["from"]}, To: {price["to"]}, Cost: {price["cost"]}')
+
+else:
+    st.error(f'Request failed with status code {response.status_code}')
