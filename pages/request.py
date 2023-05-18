@@ -3,7 +3,10 @@ import requests
 import fitz
 import os
 import base64
+import openai 
 
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 
