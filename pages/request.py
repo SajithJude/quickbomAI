@@ -4,7 +4,7 @@ import fitz
 import os
 import base64
 import openai 
-
+import json
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -79,9 +79,15 @@ if uploaded_file is not None:
             b64_image = encode_image(img_path)
             response = callAPI(b64_image)
             info = response['responses'][0]['textAnnotations'][0]['description']
-            propt = f"Get the list of electrical parts from the following description as a list in a valid JSON string: {info}"
-            liststr = generate_persona(propt)
-            st.write(liststr)
+            if "info" not in st.session_state:
+                st.session_state.info = info
+
+if st.button("Get List"):   
+    propt = f"Extract the list of electrical component parts from the following description into a valid JSON string: {st.session_state.info}"
+    liststr = generate_persona(propt)
+    st.write(liststr)
+    json_str = json.loads(liststr)
+
 
 
 
