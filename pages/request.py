@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import fitz
 import os
+import base64
 
 
 
@@ -46,14 +47,21 @@ uploaded_file = st.file_uploader("Upload a Diagram as a PDF file", type="pdf")
 if uploaded_file is not None:
 
     with open(uploaded_file.name, "wb") as f:
-                f.write(uploaded_file.getbuffer())
+        f.write(uploaded_file.getbuffer())
 
     # display PDF file
     with fitz.open(uploaded_file.name) as doc:
         for page in doc:  # iterate through the pages
             pix = page.get_pixmap()  # render page to an image
-            pix.save("data/page-%i.png" % page.number) 
+            img = pix.getPNGData()  # get PNG data from pixmap object
+            b64_img = base64.b64encode(img).decode("utf-8")  # encode image data to base64
 
+            # Call the API with the base64 encoded image
+            response = callAPI(b64_img)
+
+            # You may add code here to handle the response
+            # For example, you can print out the response
+            st.write(response)
 
 
 keyword = st.text_input("Input Search Keyword")
