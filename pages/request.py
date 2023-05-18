@@ -125,7 +125,7 @@ try:
         respons = requests.get('https://api.element14.com/catalog/products', headers=headers, params=params)
 
 except (AttributeError) as e:
-    st.info("To get Started Upload an Electrical Diagram and click Get List")
+    st.info("Step 1: Upload an Electrical Diagram and click Get List")
 
 try:
     # Check the respons status
@@ -156,4 +156,4 @@ try:
     else:
         st.error(f'Request failed with status code {respons.status_code}')
 except (NameError) as e:
-    st.info("Input search keyword and click make request")
+    st.info("Step 2: Select a part Number and click make request")
