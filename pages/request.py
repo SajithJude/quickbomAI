@@ -84,7 +84,7 @@ if uploaded_file is not None:
 
 if st.button("Get List"):   
     with st.spinner("Please wait till the AI engine extracts the part list"):
-        propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}\n (list key should be electrical_products)"
+        propt = f"Extract the list of purchaseable electrical product parts from the following description into a valid JSON string: {st.session_state.info}\n (list key should be electrical_products, and the list should contain only valid electrical parts/products)"
         liststr = generate_persona(propt)
         st.write(liststr)
     try:
