@@ -3,6 +3,8 @@ import requests
 
 st.title('Product Search')
 
+
+keyword = st.text_input("Input Search Keyword")
 # Define parameters
 params = {
     'versionNumber': '1.2',
@@ -34,21 +36,21 @@ if response.status_code == 200:
     # Display each product
     for product in products:
         st.subheader(product['displayName'])
-        st.text(f'SKU: {product["sku"]}')
-        st.text(f'Product Status: {product["productStatus"]}')
-        st.text(f'ROHS Status Code: {product["rohsStatusCode"]}')
-        st.text(f'Pack Size: {product["packSize"]}')
-        st.text(f'Unit of Measure: {product["unitOfMeasure"]}')
+        st.write(f'SKU: {product["sku"]}')
+        st.write(f'Product Status: {product["productStatus"]}')
+        st.write(f'ROHS Status Code: {product["rohsStatusCode"]}')
+        st.write(f'Pack Size: {product["packSize"]}')
+        st.write(f'Unit of Measure: {product["unitOfMeasure"]}')
         st.image(f'https://uk.farnell.com{product["image"]["baseName"]}')
 
         st.subheader('Datasheets:')
         for datasheet in product['datasheets']:
-            st.text(f'Description: {datasheet["description"]}')
-            st.text(f'URL: {datasheet["url"]}')
+            st.write(f'Description: {datasheet["description"]}')
+            st.write(f'URL: {datasheet["url"]}')
 
         st.subheader('Prices:')
         for price in product['prices']:
-            st.text(f'From: {price["from"]}, To: {price["to"]}, Cost: {price["cost"]}')
+            st.write(f'From: {price["from"]}, To: {price["to"]}, Cost: {price["cost"]}')
 
 else:
     st.error(f'Request failed with status code {response.status_code}')
